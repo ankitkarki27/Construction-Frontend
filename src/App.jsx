@@ -8,7 +8,11 @@ import Contact from './components/frontend/Contact';
 import Services from './components/frontend/Services';
 
 import './assets/css/index.css'; 
+import './assets/css/style.scss';
+  
 import Login from './components/backend/Login';
+// import Dashboard from './components/backend/Dashboard';
+import Dashboard from './components/backend/Dashboard';
 
 // react toaster
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,6 +32,7 @@ function App() {
         <Route path="/contacts" element={<Contact />} />
         <Route path="/services" element={<Services />} />
         <Route path="/admin/login" element={<Login />}/>
+        <Route path="/admin/dashboard" element={<Dashboard />}/>
         </Routes>
       </BrowserRouter>
       <ToastContainer 

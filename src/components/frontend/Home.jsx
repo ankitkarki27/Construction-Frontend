@@ -33,6 +33,13 @@ const Home = () => {
           {/* Hero Content */}
           <div className="container mx-auto px-4 py-24 relative z-10 flex-grow flex items-center justify-center">
             <div className="text-center max-w-3xl mx-auto">
+              
+            <div className="mb-8">
+                  <span className="bg-blue-600/20 text-blue-400 px-6 py-2 rounded-full text-sm font-semibold">
+                    Building Futures Since 1998
+                  </span>
+                </div>
+              
               <h1 className="text-6xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-md">
                 Building Your Vision,<br />
                 <span className="text-blue-400">Delivering Excellence</span>
@@ -82,6 +89,16 @@ const Home = () => {
                   <div className="text-sm">Expert Team</div>
                 </div>
               </div>
+
+               {/* Scroll Indicator */}
+               <div className="mt-16 animate-bounce">
+                  <div className="flex flex-col items-center text-blue-200">
+                    <span className="text-sm mb-2">Explore More</span>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </div>
+                </div>
             </div>
           </div>
         </section>

@@ -3,7 +3,7 @@ import React from 'react'
 const Testimonials = () => {
   return (
     <div>
-    <div class="lg:p-10 p-6 font-[sans-serif] bg-gray-50">
+    <div class="lg:p-10 p-6 bg-gray-50">
       <div class="max-w-6xl max-lg:max-w-3xl mx-auto">
         <div class="max-w-2xl">
           <h2 class="text-gray-800 text-2xl font-bold">What our happy client say</h2>
@@ -15,13 +15,15 @@ const Testimonials = () => {
             <div class="flex items-center">
               <img src="https://readymadeui.com/team-1.webp" class="w-11 h-11 rounded-full" />
               <div class="ml-4">
-                <h4 class="text-gray-800 text-sm font-semibold">John Doe</h4>
-                <p class="mt-0.5 text-xs text-gray-400">Founder of Rubik</p>
+                <h4 class="text-gray-800 text-sm font-semibold">Abhishek Niraula</h4>
+                <p class="mt-0.5 text-xs text-gray-400">Gongabu,Kathmandu</p>
               </div>
             </div>
 
             <div class="mt-6">
-              <p class="text-gray-800 text-sm leading-relaxed">The service was amazing. I never had to wait that long for my food. The staff was friendly and attentive, and the delivery was impressively prompt.</p>
+              <p class="text-gray-800 text-sm leading-relaxed">
+              The service was outstanding! The team was professional, efficient, and delivered high-quality work on time. They kept us informed throughout the process, and the final result exceeded our expectations.
+              </p>
             </div>
 
             <div class="flex space-x-1 mt-4">
@@ -40,12 +42,12 @@ const Testimonials = () => {
                 <path
                   d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
               </svg>
-              <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+              <svg class="w-4 fill-blue-600" viewBox="0 0 14 13" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
               </svg>
-              <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+              <svg class="w-4 fill-blue-600" viewBox="0 0 14 13" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
@@ -63,8 +65,10 @@ const Testimonials = () => {
             </div>
 
             <div class="mt-6">
-              <p class="text-gray-800 text-sm leading-relaxed">The service was amazing. I never had to wait that long for my food. The staff was friendly and attentive, and the delivery was impressively prompt.</p>
-            </div>
+              <p class="text-gray-800 text-sm leading-relaxed">
+              Outstanding service! Professional, efficient, and delivered high-quality work on time.
+                </p>
+              </div>
 
             <div class="flex space-x-1 mt-4">
               <svg class="w-3.5 h-3.5 fill-blue-600" viewBox="0 0 14 13" fill="none"
@@ -105,7 +109,8 @@ const Testimonials = () => {
             </div>
 
             <div class="mt-6">
-              <p class="text-gray-800 text-sm leading-relaxed">The service was amazing. I never had to wait that long for my food. The staff was friendly and attentive, and the delivery was impressively prompt. Highly recommended for anyone seeking top-notch service!</p>
+              <p class="text-gray-800 text-sm leading-relaxed">
+              Timely, professional, and top-notch craftsmanship. They kept us updated throughout the process and delivered beyond expectations.</p>
             </div>
 
             <div class="flex space-x-1 mt-4">
@@ -147,7 +152,8 @@ const Testimonials = () => {
             </div>
 
             <div class="mt-6">
-              <p class="text-gray-800 text-sm leading-relaxed">I was thoroughly impressed by their speed and quality of work. NextGen has become a go-to for our projects.</p>
+              <p class="text-gray-800 text-sm leading-relaxed">
+              Exceptional workmanship and attention to detail. Their dedication and professionalism made our construction project stress-free and also Reliable and skilled team! They transformed our vision into reality with precision.</p>
             </div>
 
             <div class="flex space-x-1 mt-4">
