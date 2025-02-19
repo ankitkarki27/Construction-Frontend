@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { 
   Home, 
   Users, 
@@ -12,8 +12,10 @@ import {
   LogOut,
   Menu
 } from 'lucide-react';
+import { AuthContext } from './context/Auth';
 
 const Dashboard = () => {
+  const {logout}=useContext(AuthContext);
   const [activeSection, setActiveSection] = useState('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -52,6 +54,11 @@ const Dashboard = () => {
           <button onClick={() => setActiveSection('settings')} className="flex items-center p-3 hover:bg-zinc-800 rounded-lg w-full">
             <Settings className="h-5 w-5 mr-3" />{isSidebarOpen && 'Settings'}
           </button>
+          
+          <button onClick={logout} className="flex items-center p-3 hover:bg-zinc-800 rounded-lg w-full">
+            <LogOut className="h-5 w-5 mr-3" />{isSidebarOpen && 'Logout'}
+          </button>
+
         </nav>
       </div>
 

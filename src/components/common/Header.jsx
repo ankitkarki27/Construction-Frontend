@@ -16,7 +16,7 @@ const Header = () => {
       <img
         src="/image2.png"
         alt="Service Title"
-        className="h-12 w-auto object-contain"
+        className="h-10 w-auto object-contain"
       />
     </a>
   </div>

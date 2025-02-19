@@ -70,7 +70,7 @@ const Home = () => {
                   Get in Touch
                 </a>
               </div>
-
+{/* 
               <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 text-white">
                 <div className="p-4">
                   <div className="text-4xl font-bold text-blue-300">25+</div>
@@ -88,7 +88,7 @@ const Home = () => {
                   <div className="text-4xl font-bold text-blue-300">50+</div>
                   <div className="text-sm">Expert Team</div>
                 </div>
-              </div>
+              </div> */}
 
                {/* Scroll Indicator */}
                <div className="mt-16 animate-bounce">

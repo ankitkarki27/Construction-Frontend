@@ -1,30 +1,29 @@
-import { Children, createContext } from "react";
+import { createContext, useState, useEffect } from "react"; 
+
 export const AuthContext = createContext(null);
 
-export const AuthProvider = ({children}) =>{
+export const AuthProvider = ({ children }) => {
+  // Initialize the user state by checking if user info exists in localStorage
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("UserInfo");
+    return storedUser ? JSON.parse(storedUser) : null; // Parse user info if exists, otherwise null
+  });
 
-    const userInfo = localStorage.getItem('UserInfo');
-    const [user,setUser] = useState(userInfo)
+  // Login method
+  const login = (user) => {
+    setUser(user);
+    localStorage.setItem("UserInfo", JSON.stringify(user)); // Store user info as string
+  };
 
-    // 2methods
-    // 1.login methods
+  // Logout method
+  const logout = () => {
+    localStorage.removeItem("UserInfo");
+    setUser(null);
+  };
 
-    const Login= (user)=>{
-        setUser(user)
-    }
-
-    const Logout= (user)=>{
-        localStorage.removeItem('userInfo');
-        setUser(null)
-    }
-
-    return(
-        <AuthContext.Provider value={{
-            user,login,logout
-        }}>
-
-
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
