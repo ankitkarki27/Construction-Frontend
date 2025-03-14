@@ -7,9 +7,9 @@ const Contact = () => {
     <section className="py-16">
     <div className="container mx-auto px-4">
     <div className="text-center mb-10">
-    <p className="text-xl text-black max-w-xl mx-auto mt-2">
+    {/* <p className="text-xl text-black max-w-xl mx-auto mt-2">
         Have a project in mind? Let’s discuss how we can build something great together.
-      </p>
+      </p> */}
     </div>
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
