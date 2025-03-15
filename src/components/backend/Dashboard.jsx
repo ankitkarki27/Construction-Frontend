@@ -3,82 +3,140 @@ import {
   Home, 
   Users, 
   Settings, 
-  BarChart2, 
   Bell, 
-  Search,
-  Mail,
-  Calendar,
-  HelpCircle,
-  LogOut,
-  Menu
+  LogOut
 } from 'lucide-react';
 import { AuthContext } from './context/Auth';
+import Show from './services/show';
+import Create from './services/Create';
 
 const Dashboard = () => {
-  const {logout}=useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState('dashboard');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
 
   const sections = {
-    dashboard: 
-    <h2 className="text-2xl font-bold">Dashboard Content</h2>,
-    users: <h2 className="text-2xl font-bold">Users Management</h2>,
-    analytics: <h2 className="text-2xl font-bold">Analytics Overview</h2>,
-    settings: <h2 className="text-2xl font-bold">Settings</h2>,
+    dashboard: <p className="text-gray-500 text-sm">Dashboard goes here</p>,
+    services: (
+      <>
+        <button 
+          onClick={() => setActiveSection('create')} 
+          className="w-full text-left p-2 hover:bg-gray-200 rounded-md text-sm text-gray-600"
+        >
+          Create
+        </button>
+        <button 
+          onClick={() => setActiveSection('show')} 
+          className="w-full text-left p-2 hover:bg-gray-200 rounded-md text-sm text-gray-600"
+        >
+          Show
+        </button>
+      </>
+    ),
+    show: <Show />,
+    create: <Create />,
+    settings: <h2 className="text-sm font-medium text-gray-800">Settings</h2>,
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className={`bg-zinc-900 text-white transition-transform ${isSidebarOpen ? 'w-64' : 'w-16'} duration-300`}>
-        <div className="p-4 flex items-center justify-between">
-          <h2 className={`text-2xl font-bold transition-opacity ${isSidebarOpen ? 'opacity-100' : 'opacity-0 hidden'}`}>
-            {/* <div className="flex justify-center mb-8"> */}
-            <img src="/image2.png" alt="Logo" className="h-12" />
-          {/* </div> */}
-          </h2>
-          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white">
-            <Menu className="h-6 w-6" />
-          </button>
+    <div className="flex h-screen bg-white">
+      {/* Fixed Sidebar */}
+      <div className="bg-white border-r border-gray-200 w-48 flex flex-col">
+        <div className="p-4 border-b border-gray-200">
+          <img src="/image.png" alt="Logo" className="h-12" />
         </div>
-        <nav className="mt-6 space-y-2">
-          <button onClick={() => setActiveSection('dashboard')} className="flex items-center p-3 bg-zinc-800 rounded-lg w-full">
-            <Home className="h-5 w-5 mr-3" />{isSidebarOpen && 'Dashboard'}
-          </button>
-          <button onClick={() => setActiveSection('users')} className="flex items-center p-3 hover:bg-zinc-800 rounded-lg w-full">
-            <Users className="h-5 w-5 mr-3" />{isSidebarOpen && 'Users'}
-          </button>
-          <button onClick={() => setActiveSection('analytics')} className="flex items-center p-3 hover:bg-zinc-800 rounded-lg w-full">
-            <BarChart2 className="h-5 w-5 mr-3" />{isSidebarOpen && 'Analytics'}
-          </button>
-          <button onClick={() => setActiveSection('settings')} className="flex items-center p-3 hover:bg-zinc-800 rounded-lg w-full">
-            <Settings className="h-5 w-5 mr-3" />{isSidebarOpen && 'Settings'}
+        
+        {/* Main Navigation */}
+        <nav className="mt-4 space-y-1 px-2 flex-1">
+          <button 
+            onClick={() => setActiveSection('dashboard')} 
+            className={`flex items-center p-2 rounded-md w-full ${
+              activeSection === 'dashboard' 
+                ? 'bg-blue-50 text-blue-600' 
+                : 'text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            <Home className="h-4 w-4" />
+            <span className="ml-3 text-sm">Dashboard</span>
           </button>
           
-          <button onClick={logout} className="flex items-center p-3 hover:bg-zinc-800 rounded-lg w-full">
-            <LogOut className="h-5 w-5 mr-3" />{isSidebarOpen && 'Logout'}
-          </button>
+          {/* Services Section */}
+          <div>
+            <button 
+              onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)} 
+              className={`flex items-center p-2 rounded-md w-full ${
+                isServicesDropdownOpen 
+                  ? 'bg-blue-50 text-blue-600' 
+                  : 'text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <Users className="h-4 w-4" />
+              <span className="ml-3 text-sm">Services</span>
+            </button>
+            {isServicesDropdownOpen && (
+              <div className="ml-6 mt-1 space-y-1">
+                {sections.services}
+              </div>
+            )}
+          </div>
 
+          <button 
+            onClick={() => setActiveSection('settings')} 
+            className={`flex items-center p-2 rounded-md w-full ${
+              activeSection === 'settings' 
+                ? 'bg-blue-50 text-blue-600' 
+                : 'text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            <Settings className="h-4 w-4" />
+            <span className="ml-3 text-sm">Settings</span>
+          </button>
+        
+          <button 
+            className={`flex items-center p-2 rounded-md w-full ${
+              activeSection === 'notifications' 
+                ? 'bg-blue-50 text-blue-600' 
+                : 'text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            <Bell className="h-4 w-4" />
+            <span className="ml-3 text-sm">Notifications</span>
+          </button>
         </nav>
+
+        {/* Admin Section Inside Sidebar */}
+        <div className="border-t border-gray-200 p-3">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+              <span className="text-xs text-gray-600">AD</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-700">Admin Name</p>
+              <p className="text-xs text-gray-500">admin@example.com</p>
+            </div>
+          </div>
+          <button 
+            onClick={logout} 
+            className="flex items-center w-full p-2 text-gray-600 hover:bg-gray-200 rounded-md text-sm"
+          >
+            <LogOut className="h-4 w-4" />
+            <span className="ml-3">Logout</span>
+          </button>
+        </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        <header className="bg-white shadow-sm p-4 flex justify-between items-center">
-          <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
-            <Search className="h-5 w-5 text-gray-500" />
-            <input type="text" placeholder="Search..." className="ml-2 bg-transparent focus:outline-none" />
-          </div>
-          <div className="flex items-center space-x-4">
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <Bell className="h-5 w-5 text-gray-600" />
-            </button>
-            <div className="w-8 h-8 bg-zinc-900 rounded-full"></div>
-          </div>
-        </header>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col">
+        {/* <header className="bg-white border-b border-gray-200 p-4">
+          <h1 className="text-sm font-semibold text-gray-800">
+            {activeSection === 'dashboard' ? 'Overview' : activeSection}
+          </h1>
+        </header> */}
 
-        <main className="p-6">
-          {sections[activeSection]}
+        <main className="flex-1 bg-gray-50 p-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            {sections[activeSection]}
+          </div>
         </main>
       </div>
     </div>

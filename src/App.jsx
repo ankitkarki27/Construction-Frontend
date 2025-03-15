@@ -11,13 +11,16 @@ import './assets/css/index.css';
 import './assets/css/style.scss';
   
 import Login from './components/backend/Login';
-// import Dashboard from './components/backend/Dashboard';
 import Dashboard from './components/backend/Dashboard';
 
 // react toaster
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import RequireAuth from './components/common/RequireAuth';
+import {default as ShowServices} from './components/backend/services/show';
+import {default as CreateServices} from './components/backend/services/Create';
+
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -33,11 +36,23 @@ function App() {
         <Route path="/contacts" element={<Contact />} />
         <Route path="/services" element={<Services />} />
         <Route path="/admin/login" element={<Login />}/>
-
-
-        <Route path="/admin/dashboard" element={
+        <Route path='/admin/dashboard' element={
           <RequireAuth>
           <Dashboard/>
+          </RequireAuth>
+          
+          }/>
+
+          <Route path='/admin/services' element={
+          <RequireAuth>
+          <ShowServices/>
+          </RequireAuth>
+          
+          }/>
+
+          <Route path='/admin/services/create' element={
+          <RequireAuth>
+          <CreateServices/>
           </RequireAuth>
           
           }/>
