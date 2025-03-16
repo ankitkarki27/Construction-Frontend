@@ -1,40 +1,39 @@
 import React, { useState } from 'react';
+import { apiUrl, token } from '../../common/http';
+import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 const Create = ({ setActiveSection }) => {
-    const [title, setTitle] = useState('');
-    const [slug, setSlug] = useState('');
-    const [shortDescription, setShortDescription] = useState('');
-    const [content, setContent] = useState('');
-    const [status, setStatus] = useState(1);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+        watch
+    } = useForm();
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch('YOUR_API_ENDPOINT_HERE', {
+            const response = await fetch(apiUrl + 'services', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer YOUR_TOKEN_HERE`
+                    'Authorization': `Bearer ${token()}`,
                 },
-                body: JSON.stringify({
-                    title,
-                    slug,
-                    short_description: shortDescription,
-                    content,
-                    status
-                })
+                body: JSON.stringify(data),
             });
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
             }
 
-            alert('Service created successfully!');
+            toast.success('Service created successfully!');
             setActiveSection('services'); // Redirect back to services list
         } catch (err) {
             console.error('Error creating service:', err);
@@ -45,91 +44,76 @@ const Create = ({ setActiveSection }) => {
     };
 
     return (
-        <div className="p-2">
-            <div className="flex justify-between items-center mb-2">
-                <h4 className="text-xl font-semibold text-gray-800">services/create</h4>
-                {/* <a
-             
-                  onClick={() => setActiveSection('show')} 
-                    className="bg-gray-600 text-white px-5 py-2 rounded-lg shadow hover:bg-gray-700 transition duration-300"
-                >
-                    ← show Services
-                </a> */}
-            </div>
+        <div className="bg-white rounded-lg shadow-lg p-8 mx-4 mb-6 space-y-6">
+            {/* <h2 className="text-2xl font-semibold text-gray-800">Add Your Service</h2> */}
 
-            {error && <p className="text-red-500 mb-4">{error}</p>}
+            {error && <p className="text-red-500">{error}</p>}
 
-            <form onSubmit={handleSubmit} className=" p-6 space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* Title */}
                 <div>
                     <label className="block text-gray-700 font-medium">Title</label>
                     <input
+                        {...register('title', { required: "Enter service title" })}
                         type="text"
-                        className="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="Enter service title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
                     />
+                    {errors.title && <p className="text-red-400 mt-1">{errors.title.message}</p>}
                 </div>
 
                 {/* Slug */}
                 <div>
                     <label className="block text-gray-700 font-medium">Slug</label>
                     <input
+                        {...register('slug', { required: "Enter service slug" })}
                         type="text"
-                        className="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="Enter slug"
-                        value={slug}
-                        onChange={(e) => setSlug(e.target.value)}
-                        required
                     />
+                    {errors.slug && <p className="text-red-400 mt-1">{errors.slug.message}</p>}
                 </div>
 
                 {/* Short Description */}
                 <div>
                     <label className="block text-gray-700 font-medium">Short Description</label>
                     <textarea
-                        className="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        {...register('shortDescription', { required: "Enter a short description" })}
+                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="Enter a short description"
-                        rows="3"
-                        value={shortDescription}
-                        onChange={(e) => setShortDescription(e.target.value)}
-                        required
-                    ></textarea>
+                        rows="4"
+                    />
+                    {errors.shortDescription && <p className="text-red-400 mt-1">{errors.shortDescription.message}</p>}
                 </div>
 
                 {/* Content */}
                 <div>
                     <label className="block text-gray-700 font-medium">Content</label>
                     <textarea
-                        className="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        {...register('content', { required: "Enter detailed content" })}
+                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="Enter detailed content"
-                        rows="4"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        required
-                    ></textarea>
+                        rows="6"
+                    />
+                    {errors.content && <p className="text-red-400 mt-1">{errors.content.message}</p>}
                 </div>
 
                 {/* Status Dropdown */}
                 <div>
                     <label className="block text-gray-700 font-medium">Status</label>
                     <select
-                        className="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                        value={status}
-                        onChange={(e) => setStatus(parseInt(e.target.value))}
+                        {...register('status')}
+                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
                     >
                         <option value={1}>Active</option>
                         <option value={0}>Blocked</option>
                     </select>
                 </div>
 
-                {/* Submit Button */}
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-blue-600 text-white p-3 rounded-lg shadow-md hover:bg-blue-700 transition"
+                    className="w-full bg-blue-600 text-white p-4 rounded-lg shadow-md hover:bg-blue-700 transition"
                 >
                     {loading ? 'Creating...' : 'Create Service'}
                 </button>

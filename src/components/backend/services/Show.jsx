@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { apiUrl, token } from '../../common/http';
 
 import { 
-    Edit, Trash ,
+    Edit, Trash,
     Home, 
     Users, 
     Settings, 
     Bell, 
     LogOut
-  } from 'lucide-react';
+} from 'lucide-react';
   
 const Show = ({ setActiveSection }) => {
     const [services, setServices] = useState([]);
@@ -43,43 +43,45 @@ const Show = ({ setActiveSection }) => {
     useEffect(() => {
         fetchServices();
     }, []);
+    
     return (
-        <div className="p-6">
-            {/* Header Section */}
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-100">
+        <div className="p-4">
+            {/* <div className="bg-white rounded-lg shadow-sm p-5 mb-4 border border-gray-100">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-1">Services</h2>
-                        <p className="text-sm text-gray-500">Manage your organization's services</p>
+                        <h2 className="font-semibold text-gray-900 text-lg">Services</h2>
+                        <p className="text-sm text-gray-500 mt-1">View and manage your services</p>
                     </div>
                 </div>
-            </div>
-    
-            {/* Content Section */}
+            </div>     */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                {/* Loading and Error Handling */}
                 {loading ? (
                     <div className="p-8 text-center">
-                        <div className="text-gray-500 animate-pulse">Loading services...</div>
+                        <div className="inline-block h-6 w-6 border-2 border-t-blue-500 border-blue-200 rounded-full animate-spin mb-2"></div>
+                        <div className="text-gray-500">Loading services...</div>
                     </div>
                 ) : error ? (
                     <div className="p-8 text-center">
-                        <div className="text-red-500">⚠️ Error loading services: {error}</div>
+                        <div className="text-red-500 mb-2">⚠️</div>
+                        <div className="text-gray-700 font-medium">Error loading services</div>
+                        <div className="text-red-500 text-sm mt-1">{error}</div>
                     </div>
                 ) : services.length === 0 ? (
                     <div className="p-8 text-center">
-                        <div className="text-gray-500">No services available</div>
+                        <div className="text-gray-400 mb-2">📋</div>
+                        <div className="text-gray-700 font-medium">No services available</div>
+                        <div className="text-gray-500 text-sm mt-1">Create a new service to get started</div>
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
                                 <tr className="text-gray-700">
-                                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
-                                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Slug</th>
-                                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
+                                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Slug</th>
+                                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -94,6 +96,9 @@ const Show = ({ setActiveSection }) => {
                                                 ? 'bg-green-100 text-green-700'
                                                 : 'bg-red-100 text-red-700'
                                             }`}>
+                                                <span className={`w-1.5 h-1.5 mr-1.5 rounded-full ${
+                                                    service.status === 1 ? 'bg-green-400' : 'bg-red-400'
+                                                }`}></span>
                                                 {service.status === 1 ? 'Active' : 'Blocked'}
                                             </span>
                                         </td>
