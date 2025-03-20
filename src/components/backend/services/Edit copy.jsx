@@ -109,7 +109,7 @@ const Edit = ({ setActiveSection }) => {
           />
           {errors.short_desc && <p className="text-red-400">{errors.short_desc.message}</p>}
         </div>
-        {/* <div>
+        <div>
           <label className="block text-gray-700 font-medium">Image</label>
           <input
             {...register('image')}
@@ -118,7 +118,7 @@ const Edit = ({ setActiveSection }) => {
             onChange={handleImageChange}
             className="w-full p-4 border rounded-lg"
           />
-        </div> */}
+        </div>
         <div>
           <label className="block text-gray-700 font-medium">Status</label>
           <select {...register('status')} className="w-full p-4 border rounded-lg">
