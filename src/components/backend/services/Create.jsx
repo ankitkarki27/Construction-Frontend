@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { apiUrl, token } from '../../common/http';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
+import JoditEditor from "jodit-react";
 
 const Create = ({ setActiveSection }) => {
     const {
@@ -14,10 +15,60 @@ const Create = ({ setActiveSection }) => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [imageId, setImageId] = useState(null);
 
+    // ✅ Image Upload Function (Fixed)
+    const handleFile = async (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            toast.error("No file selected");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+            const response = await fetch(apiUrl + 'service-images', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token()}`,
+                },
+                body: formData,
+            });
+
+            const result = await response.json();
+            console.log("Image Upload Response:", result); // Debugging
+
+            if (!response.ok || result.status === false) {
+                toast.error(result.errors?.image?.[0] || "Image upload failed");
+            } else {
+                setImageId(result.data.id);
+                console.log("Stored Image ID:", result.data.id); // Debugging
+                toast.success("Image uploaded successfully!");
+            }
+        } catch (error) {
+            console.error("Image Upload Error:", error);
+            toast.error("Failed to upload image. Please try again.");
+        }
+    };
+
+    // ✅ Form Submission Function (Fixed)
     const onSubmit = async (data) => {
         setLoading(true);
         setError(null);
+
+        const newData = {
+            title: data.title,
+            slug: data.slug,
+            shortDescription: data.shortDescription,
+            content: data.content,
+            status: data.status,
+            image_id: imageId,  // ✅ Ensuring image ID is included
+        };
+
+        console.log("Submitting Service Data:", newData); // Debugging
 
         try {
             const response = await fetch(apiUrl + 'services', {
@@ -26,11 +77,14 @@ const Create = ({ setActiveSection }) => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token()}`,
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(newData),
             });
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
+            const result = await response.json();
+            console.log("Service Submission Response:", result); // Debugging
+
+            if (!response.ok || result.status === false) {
+                throw new Error(result.errors?.image_id?.[0] || "Failed to create service");
             }
 
             toast.success('Service created successfully!');
@@ -38,6 +92,7 @@ const Create = ({ setActiveSection }) => {
         } catch (err) {
             console.error('Error creating service:', err);
             setError(err.message);
+            toast.error(err.message);
         } finally {
             setLoading(false);
         }
@@ -45,8 +100,6 @@ const Create = ({ setActiveSection }) => {
 
     return (
         <div className="bg-white rounded-lg shadow-lg p-8 mx-4 mb-6 space-y-6">
-            {/* <h2 className="text-2xl font-semibold text-gray-800">Add Your Service</h2> */}
-
             {error && <p className="text-red-500">{error}</p>}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -86,16 +139,29 @@ const Create = ({ setActiveSection }) => {
                     {errors.shortDescription && <p className="text-red-400 mt-1">{errors.shortDescription.message}</p>}
                 </div>
 
-                {/* Content */}
+                {/* Content with Jodit Editor */}
                 <div>
                     <label className="block text-gray-700 font-medium">Content</label>
-                    <textarea
-                        {...register('content', { required: "Enter detailed content" })}
-                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                        placeholder="Enter detailed content"
-                        rows="6"
+                    <JoditEditor
+                        value={watch("content")}
+                        onBlur={(newContent) => setValue("content", newContent)}
+                        config={{
+                            minHeight: 300,
+                            placeholder: "Enter detailed content here...",
+                        }}
                     />
                     {errors.content && <p className="text-red-400 mt-1">{errors.content.message}</p>}
+                </div>
+
+                {/* Image Upload */}
+                <div>
+                    <label className="block text-gray-700 font-medium">Image</label>
+                    <input
+                        type="file"
+                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
+                        accept="image/*"
+                        onChange={handleFile} // ✅ Ensure onChange is correctly set
+                    />
                 </div>
 
                 {/* Status Dropdown */}
