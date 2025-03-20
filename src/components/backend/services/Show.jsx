@@ -3,11 +3,6 @@ import { apiUrl, token } from '../../common/http';
 
 import { 
     Edit, Trash,
-    Home, 
-    Users, 
-    Settings, 
-    Bell, 
-    LogOut
 } from 'lucide-react';
   
 const Show = ({ setActiveSection }) => {
@@ -46,14 +41,6 @@ const Show = ({ setActiveSection }) => {
     
     return (
         <div className="p-4">
-            {/* <div className="bg-white rounded-lg shadow-sm p-5 mb-4 border border-gray-100">
-                <div className="flex justify-between items-center">
-                    <div>
-                        <h2 className="font-semibold text-gray-900 text-lg">Services</h2>
-                        <p className="text-sm text-gray-500 mt-1">View and manage your services</p>
-                    </div>
-                </div>
-            </div>     */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
                 {loading ? (
                     <div className="p-8 text-center">
@@ -62,7 +49,6 @@ const Show = ({ setActiveSection }) => {
                     </div>
                 ) : error ? (
                     <div className="p-8 text-center">
-                        <div className="text-red-500 mb-2">⚠️</div>
                         <div className="text-gray-700 font-medium">Error loading services</div>
                         <div className="text-red-500 text-sm mt-1">{error}</div>
                     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { apiUrl, token } from '../../common/http';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
@@ -17,15 +17,38 @@ const Create = ({ setActiveSection }) => {
     const [error, setError] = useState(null);
     const [imageId, setImageId] = useState(null);
 
-    // ✅ Image Upload Function (Fixed)
-    const handleFile = async (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            toast.error("No file selected");
-            return;
-        }
+    const onSubmit = async (data) => {
+        setLoading(true);
+        setError(null);
 
+        try {
+            const newData = { ...data, content: watch('content'), imageId: imageId };
+            const response = await fetch(apiUrl + 'services', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token()}`,
+                },
+                body: JSON.stringify(newData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+
+            toast.success('Service created successfully!');
+            setActiveSection('services'); // Redirect back to services list
+        } catch (err) {
+            console.error('Error creating service:', err);
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleFile = async (e) => {
         const formData = new FormData();
+        const file = e.target.files[0];
         formData.append("image", file);
 
         try {
@@ -39,62 +62,16 @@ const Create = ({ setActiveSection }) => {
             });
 
             const result = await response.json();
-            console.log("Image Upload Response:", result); // Debugging
-
-            if (!response.ok || result.status === false) {
-                toast.error(result.errors?.image?.[0] || "Image upload failed");
+            
+            if (result.status === false) {
+                toast.error(result.errors?.image?.[0] || 'Image upload failed');
             } else {
                 setImageId(result.data.id);
-                console.log("Stored Image ID:", result.data.id); // Debugging
-                toast.success("Image uploaded successfully!");
+                toast.success('Image uploaded successfully!');
             }
         } catch (error) {
-            console.error("Image Upload Error:", error);
-            toast.error("Failed to upload image. Please try again.");
-        }
-    };
-
-    // ✅ Form Submission Function (Fixed)
-    const onSubmit = async (data) => {
-        setLoading(true);
-        setError(null);
-
-        const newData = {
-            title: data.title,
-            slug: data.slug,
-            shortDescription: data.shortDescription,
-            content: data.content,
-            status: data.status,
-            image_id: imageId,  // ✅ Ensuring image ID is included
-        };
-
-        console.log("Submitting Service Data:", newData); // Debugging
-
-        try {
-            const response = await fetch(apiUrl + 'services', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token()}`,
-                },
-                body: JSON.stringify(newData),
-            });
-
-            const result = await response.json();
-            console.log("Service Submission Response:", result); // Debugging
-
-            if (!response.ok || result.status === false) {
-                throw new Error(result.errors?.image_id?.[0] || "Failed to create service");
-            }
-
-            toast.success('Service created successfully!');
-            setActiveSection('services'); // Redirect back to services list
-        } catch (err) {
-            console.error('Error creating service:', err);
-            setError(err.message);
-            toast.error(err.message);
-        } finally {
-            setLoading(false);
+            console.error('Error uploading image:', error);
+            toast.error('Error uploading image');
         }
     };
 
@@ -127,16 +104,16 @@ const Create = ({ setActiveSection }) => {
                     {errors.slug && <p className="text-red-400 mt-1">{errors.slug.message}</p>}
                 </div>
 
-                {/* Short Description */}
-                <div>
+              {/* short_desc */}
+              <div>
                     <label className="block text-gray-700 font-medium">Short Description</label>
                     <textarea
-                        {...register('shortDescription', { required: "Enter a short description" })}
+                        {...register('short_desc', { required: "Enter a short description" })}
                         className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="Enter a short description"
                         rows="4"
                     />
-                    {errors.shortDescription && <p className="text-red-400 mt-1">{errors.shortDescription.message}</p>}
+                    {errors.short_desc && <p className="text-red-400 mt-1">{errors.short_desc.message}</p>}
                 </div>
 
                 {/* Content with Jodit Editor */}
@@ -158,10 +135,12 @@ const Create = ({ setActiveSection }) => {
                     <label className="block text-gray-700 font-medium">Image</label>
                     <input
                         type="file"
+                        {...register('image', { required: "Please upload an image" })}
                         className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
                         accept="image/*"
-                        onChange={handleFile} // ✅ Ensure onChange is correctly set
+                        onChange={handleFile}
                     />
+                    {errors.image && <p className="text-red-400 mt-1">{errors.image.message}</p>}
                 </div>
 
                 {/* Status Dropdown */}
