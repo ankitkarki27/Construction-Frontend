@@ -76,95 +76,119 @@ const Create = ({ setActiveSection }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-lg p-8 mx-4 mb-6 space-y-6">
-            {error && <p className="text-red-500">{error}</p>}
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {/* Title */}
-                <div>
-                    <label className="block text-gray-700 font-medium">Title</label>
-                    <input
-                        {...register('title', { required: "Enter service title" })}
-                        type="text"
-                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                        placeholder="Enter service title"
+            <div className="bg-white rounded-xl shadow-md p-6 mx-auto max-w-4xl mb-8">
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-md">
+                  <p className="text-red-600 text-sm font-medium">{error}</p>
+                </div>
+              )}
+              
+              <h2 className="text-2xl font-semibold text-gray-800 mb-6">Create Service</h2>
+              
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <input 
+                      {...register("title", { required: "Enter service title" })} 
+                      type="text" 
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+                      placeholder="Enter service title" 
                     />
-                    {errors.title && <p className="text-red-400 mt-1">{errors.title.message}</p>}
-                </div>
-
-                {/* Slug */}
-                <div>
-                    <label className="block text-gray-700 font-medium">Slug</label>
-                    <input
-                        {...register('slug', { required: "Enter service slug" })}
-                        type="text"
-                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                        placeholder="Enter slug"
+                    {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>}
+                  </div>
+          
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+                    <input 
+                      {...register("slug", { required: "Enter service slug" })} 
+                      type="text" 
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+                      placeholder="Enter slug" 
                     />
-                    {errors.slug && <p className="text-red-400 mt-1">{errors.slug.message}</p>}
+                    {errors.slug && <p className="mt-1 text-sm text-red-500">{errors.slug.message}</p>}
+                  </div>
                 </div>
-
-              {/* short_desc */}
-              <div>
-                    <label className="block text-gray-700 font-medium">Short Description</label>
-                    <textarea
-                        {...register('short_desc', { required: "Enter a short description" })}
-                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                        placeholder="Enter a short description"
-                        rows="4"
-                    />
-                    {errors.short_desc && <p className="text-red-400 mt-1">{errors.short_desc.message}</p>}
-                </div>
-
-                {/* Content with Jodit Editor */}
+          
                 <div>
-                    <label className="block text-gray-700 font-medium">Content</label>
-                    <JoditEditor
-                        value={watch("content")}
-                        onBlur={(newContent) => setValue("content", newContent)}
-                        config={{
-                            minHeight: 300,
-                            placeholder: "Enter detailed content here...",
-                        }}
-                    />
-                    {errors.content && <p className="text-red-400 mt-1">{errors.content.message}</p>}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Short Description</label>
+                  <textarea 
+                    {...register("short_desc", { required: "Enter a short description" })} 
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+                    placeholder="Enter a short description" 
+                    rows="3" 
+                  />
+                  {errors.short_desc && <p className="mt-1 text-sm text-red-500">{errors.short_desc.message}</p>}
                 </div>
-
-                {/* Image Upload */}
+          
                 <div>
-                    <label className="block text-gray-700 font-medium">Image</label>
-                    <input
-                        type="file"
-                        {...register('image', { required: "Please upload an image" })}
-                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                        accept="image/*"
-                        onChange={handleFile}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                  <div className="border border-gray-300 rounded-lg overflow-hidden">
+                    <JoditEditor 
+                      value={watch("content")} 
+                      onBlur={(newContent) => setValue("content", newContent)} 
+                      config={{
+                        minHeight: 300,
+                        placeholder: "Enter detailed content here...",
+                      }} 
                     />
-                    {errors.image && <p className="text-red-400 mt-1">{errors.image.message}</p>}
+                  </div>
+                  {errors.content && <p className="mt-1 text-sm text-red-500">{errors.content.message}</p>}
                 </div>
+          
 
-                {/* Status Dropdown */}
                 <div>
-                    <label className="block text-gray-700 font-medium">Status</label>
-                    <select
-                        {...register('status')}
-                        className="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                    >
-                        <option value={1}>Active</option>
-                        <option value={0}>Blocked</option>
-                    </select>
-                </div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Image</label>
+        <div className="border border-gray-300 rounded-lg p-3 bg-gray-50">
+          <input 
+            type="file"
+            {...register("image",
+                 { required: "Please upload an image" })}
+                 className="w-full text-m text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    accept="image/*"
+                    onChange={handleFile}
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-blue-600 text-white p-4 rounded-lg shadow-md hover:bg-blue-700 transition"
-                >
-                    {loading ? 'Creating...' : 'Create Service'}
-                </button>
-            </form>
-        </div>
-    );
+                />
+                </div>
+                {errors.image && <p className="mt-1 text-sm text-red-500">{errors.image.message}</p>}
+            </div>
+
+
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                  <select 
+                    {...register("status")} 
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-all" 
+                  >
+                    <option value={1}>Active</option>
+                    <option value={0}>Inactive</option>
+                  </select>
+                </div>
+          
+                <div className="pt-4">
+                  <button 
+                    type="submit" 
+                    disabled={loading} 
+                    className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-lg shadow-sm transition-all flex justify-center items-center"
+                  >
+                    {loading ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Creating...
+                      </>
+                    ) : (
+                      "Create Service"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          );
 };
 
 export default Create;
