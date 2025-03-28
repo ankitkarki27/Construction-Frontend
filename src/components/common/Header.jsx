@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { AlignJustify } from 'lucide-react';
-// import { X } from 'lucide-react';
-// import { createIcons, icons } from 'lucide';
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 

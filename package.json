@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.4",
     "bootstrap": "^5.3.3",
+    "framer-motion": "^12.6.2",
     "jodit-react": "^5.2.15",
     "lucide-react": "^0.474.0",
     "react": "^19.0.0",

@@ -12,8 +12,6 @@ const Contact = () => {
         breadcrumb="home / contacts" 
       />
 
-
-
 <ContactNew/>
 
 
