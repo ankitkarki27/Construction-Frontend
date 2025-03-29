@@ -11,11 +11,9 @@ const Services = () => {
 
     <>
     <Banner 
-        title="Blogs & Articles" 
-        breadcrumb="home / blogs" 
+        title="Servcices" 
+        breadcrumb="home / services" 
       />
-
-
    <ServicesNew/>
    <Footer />
     </>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 import About from '../common/About';
@@ -7,8 +7,11 @@ import Contact from '../common/Contact';
 import Blogs from '../common/Blogs';
 import Whyus from '../common/Whyus';
 import Testimonials from '../common/Testimonials';
+// import { apiUrl, token } from '../common/http';
+import LatestServices from '../common/LatestServices';
 
 const Home = () => {
+ 
   return (
     <div className="min-h-screen flex flex-col">
       <main>
@@ -80,7 +83,7 @@ const Home = () => {
 
         {/* Subsequent Sections */}
         <About />
-        <Services />
+        <LatestServices />
         <Whyus />
         <Testimonials />
         <Blogs />
