@@ -6,7 +6,7 @@ const LatestServices = () => {
 
   const fetchLatestServices = async () => {
     try {
-      const response = await fetch(apiUrl + 'latest-services?limit=4', {
+      const response = await fetch(apiUrl + 'latest-services?limit=10', {
         method: 'GET',
       });
       const result = await response.json();

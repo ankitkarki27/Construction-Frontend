@@ -12,9 +12,9 @@ const Header = () => {
   <div className="flex items-center">
     <a href="/" className="text-2xl font-bold text-white">
       <img
-        src="/image2.png"
+        src="/logo.png"
         alt="Service Title"
-        className="h-10 w-auto object-contain"
+        className="h-12 w-auto object-contain"
       />
     </a>
   </div>
