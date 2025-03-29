@@ -46,7 +46,7 @@ const About = () => {
             
             <div className="pt-6">
               <a 
-                href="#about" 
+                href="/about" 
                 className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 Learn More About Us

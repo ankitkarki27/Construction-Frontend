@@ -6,7 +6,7 @@ const Banner = ({ title, breadcrumb }) => {
   return (
     <div className="relative w-full h-[500px]">
       <img
-        src="/hero.png"
+        src="/3.png"
         alt="Construction Site"
         className="w-full h-full object-cover"
       />

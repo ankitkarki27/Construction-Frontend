@@ -3,17 +3,22 @@ import { apiUrl, fileUrl } from '../common/http';
 
 const LatestServices = () => {
   const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchLatestServices = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(apiUrl + 'latest-services?limit=4', {
         method: 'GET',
       });
       const result = await response.json();
-      console.log(result);
-      setServices(result.data);
+      if (result.data) {
+        setServices(result.data);
+      }
     } catch (error) {
       console.error("Error fetching services:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -22,53 +27,70 @@ const LatestServices = () => {
   }, []);
 
   return (
-    <section id="services" className="py-16 bg-gray-50">
-      <div className="container mx-auto px-2">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
-          <p className="text-lg text-gray-600 max-w-xl mx-auto">
-            Delivering comprehensive construction solutions to your unique project requirements
-          </p>
+    <section id="latest-services" className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="mb-12">
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-1 bg-blue-500 mb-4"></div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-3 text-center">Our Featured Services</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto text-center">
+              Discover our most popular construction solutions designed to meet your project needs
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {services && services.map(service => (
-            <div key={service.id} className="group relative">
-              <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-xl h-[400px]">
-                <div className="absolute inset-0 bg-black/50 z-10"></div> {/* Dark Overlay */}
-                <img
-                  src={`${fileUrl}uploads/services/small/${service.image}`}
-                  alt={service.title}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 brightness-75 group-hover:brightness-100"
-                />
-                
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/60 to-transparent flex flex-col justify-end p-6 translate-y-full group-hover:translate-y-0 transition-all duration-500 z-20">
-                  <div className="transform translate-y-8 group-hover:translate-y-0 transition-all duration-300 delay-150">
-                    <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
-                    <p className="text-gray-200 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
-                      {service.short_desc}
-                    </p>
-                    
-                    <a
-                      href={`/services/${service.slug}`}
-                      className="inline-flex items-center bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-300"
-                    >
-                      Explore Service
-                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </a>
+        {isLoading ? (
+          <div className="py-12 flex justify-center">
+            <div role="status" className="flex flex-col items-center">
+              <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+              <span className="mt-3 text-gray-600">Loading services...</span>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, index) => (
+              <div 
+                key={service.id} 
+                className="bg-white border border-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={`${fileUrl}uploads/services/small/${service.image}`}
+                    alt={service.title}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  <div className="absolute top-0 left-0 m-3">
+                    <span className="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full">
+                      Featured
+                    </span>
                   </div>
                 </div>
+                
+                <div className="p-5">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2 line-clamp-1">{service.title}</h3>
+                  <p className="text-gray-600 mb-4 text-sm line-clamp-2">{service.short_desc}</p>
+                  
+                  <a
+                    href={`/services/${service.slug}`}
+                    className="inline-flex items-center text-blue-500 hover:text-blue-700 font-medium text-sm group"
+                    aria-label={`Learn more about ${service.title}`}
+                  >
+                    Read More
+                    <svg className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-8">
+            ))}
+          </div>
+        )}
+
+        <div className="mt-12 text-center">
           <a
             href="/services"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+            className="inline-block px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300 shadow-md"
+            aria-label="Explore all construction services"
           >
             Explore All Services
           </a>
