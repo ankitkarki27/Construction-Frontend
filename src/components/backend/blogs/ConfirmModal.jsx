@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const ConfirmModal = ({ isOpen, onConfirm, onCancel, project }) => {
+const ConfirmModal = ({ isOpen, onConfirm, onCancel, blog }) => {
   const [animationState, setAnimationState] = useState('hidden');
   
   // Handle animation states with faster timing
@@ -97,7 +97,7 @@ const ConfirmModal = ({ isOpen, onConfirm, onCancel, project }) => {
         
         <div className="mb-6">
           <p className="text-gray-700">
-            Are you sure you want to delete the Project "<span className="font-medium text-gray-900">{project?.title}</span>"?
+            Are you sure you want to delete the Blog titled "<span className="font-medium text-gray-900">{blog?.title}</span>"?
           </p>
           <p className="text-gray-500 mt-2 text-sm">
             This action cannot be undone and all related data will be permanently removed.

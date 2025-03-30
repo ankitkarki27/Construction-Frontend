@@ -2,112 +2,112 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { apiUrl, token, fileUrl } from "../../common/http";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import JoditEditor from "jodit-react";
 
-const Edit = ({ setActiveSection }) => {
-  
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [imageId, setImageId] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [content, setContent] = useState("");
-  const [project, setProject] = useState("");
-  const params = useParams();
-
-  const config = useMemo(() => ({
-    readonly: false,
-    placeholder: "Enter content here..."
-  }), []);
-
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm();
-
-  useEffect(() => {
-    fetch(`${apiUrl}projects/${params.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        Authorization: `Bearer ${token()}`,
-      }
-    })
-    .then(response => response.json())
-    .then(result => {
-      setContent(result.data.content);
-      setProject(result.data);
-      setValue("title", result.data.title);
-      setValue("slug", result.data.slug);
-      setValue("short_desc", result.data.short_desc);
-      setValue("status", result.data.status);
-      setValue("construction_type", result.data.construction_type);
-      setValue("sector", result.data.sector); 
-      setValue("location", result.data.location);
-    })
-    .catch(() => setError("Failed to fetch project details"));
-  }, [params.id, setValue]);
-
-  const onSubmit = (data) => {
-    setLoading(true);
-    setError(null);
-
-    const newData = { ...data, content, imageId: imageId };
-
-    console.log("Sending data to backend:", newData); // Debugging
-
-    fetch(`${apiUrl}projects/${params.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            Authorization: `Bearer ${token()}`,
-        },
-        body: JSON.stringify(newData),
-    })
-    .then(response => {
-        console.log("Response status:", response.status); // Debugging
-        if (!response.ok) {
-            throw new Error("Failed to update project");
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Response from backend:", data); // Debugging
-        toast.success("Project updated successfully!");
-        Navigate('/admin/projects');
-        setActiveSection("list");
-    })
-    .catch(err => {
-        setError(err.message);
-        toast.error(err.message);
-    })
-    .finally(() => setLoading(false));
-};
-
-  const handleFileChange = (e) => {
-    const formData = new FormData();
-    const file = e.target.files[0];
-    formData.append("image", file);
+  const Edit = ({ setActiveSection }) => {
     
-    fetch(apiUrl + 'service-images', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token()}`,
-      },
-      body: formData,
-    })
-    .then(response => response.json())
-    .then(result => {
-      if (result.status === false) {
-        toast.error(result.errors?.image?.[0] || 'Image upload failed');
-      } else {
-        setImageId(result.data.id);
-        setSelectedFile(URL.createObjectURL(file));
-        toast.success('Image uploaded successfully!');
-      }
-    })
-    .catch(() => toast.error('Error uploading image'));
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [imageId, setImageId] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [content, setContent] = useState("");
+    const [blog, setBlog] = useState("");
+    const params = useParams();
+    const navigate = useNavigate();
+
+    const config = useMemo(() => ({
+      readonly: false,
+      placeholder: "Enter content here..."
+    }), []);
+
+    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm();
+
+    useEffect(() => {
+      fetch(`${apiUrl}blogs/${params.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: `Bearer ${token()}`,
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        setContent(result.data.content);
+        setBlog(result.data);
+        setValue("title", result.data.title);
+        setValue("slug", result.data.slug);
+        setValue("short_desc", result.data.short_desc);
+        setValue("status", result.data.status);
+        setValue("author", result.data.author);
+      
+      })
+      .catch(() => setError("Failed to fetch blog details"));
+    }, [params.id, setValue]);
+
+    const onSubmit = (data) => {
+      setLoading(true);
+      setError(null);
+
+      const newData = { ...data, content, imageId: imageId };
+
+      console.log("Sending data to backend:", newData); // Debugging
+
+      fetch(`${apiUrl}blogs/${params.id}`, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+              Authorization: `Bearer ${token()}`,
+          },
+          body: JSON.stringify(newData),
+      })
+      .then(response => {
+          // console.log("Response status:", response.status); // Debugging
+          if (!response.ok) {
+              throw new Error("Failed to update blog");
+          }
+          return response.json();
+      })
+      .then(data => {
+          // console.log("Response from backend:", data); // Debugging
+          toast.success("Blog updated successfully!");
+          navigate('/admin/blogs');
+          setActiveSection("list");
+      })
+      .catch(err => {
+          setError(err.message);
+          toast.error(err.message);
+      })
+      .finally(() => setLoading(false));
   };
+
+    const handleFileChange = (e) => {
+      const formData = new FormData();
+      const file = e.target.files[0];
+      formData.append("image", file);
+      
+      fetch(apiUrl + 'service-images', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token()}`,
+        },
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === false) {
+          toast.error(result.errors?.image?.[0] || 'Image upload failed');
+        } else {
+          setImageId(result.data.id);
+          setSelectedFile(URL.createObjectURL(file));
+          toast.success('Image uploaded successfully!');
+        }
+      })
+      .catch(() => toast.error('Error uploading image'));
+    };
   
   return(
 <div className="bg-white rounded-xl shadow-md p-6 mx-auto max-w-4xl mb-8">
@@ -117,7 +117,7 @@ const Edit = ({ setActiveSection }) => {
       </div>
     )} */}
     
-    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Update Project</h2>
+    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Update Blog</h2>
     
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -127,10 +127,11 @@ const Edit = ({ setActiveSection }) => {
             {...register("title", { required: "Title is required" })} 
             type="text" 
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
-            placeholder="Enter project title" 
+            placeholder="Enter Blog title" 
           />
           {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>}
         </div>
+
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
@@ -142,6 +143,19 @@ const Edit = ({ setActiveSection }) => {
           />
           {errors.slug && <p className="mt-1 text-sm text-red-500">{errors.slug.message}</p>}
         </div>
+      </div>
+
+
+      {/* author */}
+      <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Author Name</label>
+            <input 
+             {...register("author", { required: "Enter blog title" })} 
+              type="text" 
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+               placeholder="Enter author name" 
+               />
+               {errors.author && <p className="mt-1 text-sm text-red-500">{errors.author.message}</p>}
       </div>
 
       <div>
@@ -193,16 +207,16 @@ const Edit = ({ setActiveSection }) => {
       {selectedFile ? (
         <img 
           src={selectedFile} 
-          alt="Project Preview" 
+          alt="Blog Preview" 
           className="w-32 max-w-md h-32 object-cover rounded-lg border border-gray-300" 
         />
       ) : (
-        project.image && (
+        blog.image && (
           <div>
-            <p className="text-sm text-gray-600 mb-1">Current: {project.image}</p>
+            <p className="text-sm text-gray-600 mb-1">Current: {blog.image}</p>
             <img 
-              src={fileUrl + 'uploads/projects/small/' + project.image} 
-              alt="Project Preview" 
+              src={fileUrl + 'uploads/blogs/small/' + blog.image} 
+              alt="Blog Preview" 
               className="w-42 max-w-md h-32 object-cover rounded-lg border border-gray-300" 
               />
           </div>
@@ -222,56 +236,6 @@ const Edit = ({ setActiveSection }) => {
           <option value={0}>Inactive</option>
         </select>
       </div>
-
-{/* sector */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">sector</label>
-        <select 
-          {...register("sector")} 
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-all" 
-        >
-           <option value="private">private</option>
-           <option value="public">public</option>
-           <option value="governmental">governmental</option>
-        </select>
-      </div>
-
-              <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Construction Type
-          </label>
-          <select
-            {...register("construction_type")}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-all"
-          >
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-            <option value="industrial">Industrial</option>
-            <option value="infrastructure">Infrastructure</option>
-            <option value="renovation">Renovation</option>
-            <option value="educational">Educational</option>
-            <option value="transportation">Transportation</option>
-            <option value="others">Others</option>
-          </select>
-        </div>
-</div>
-
-      {/* $table->enum('construction_type', ['residential', 'commercial', 'industrial', 'infrastructure', 'renovation','educational', 'transportation', 'others'])->nullable();    */}
-      {/* $table->enum('sector', ['private', 'public', 'governmental'])->nullable();  */}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-          <input 
-            {...register("location", { required: "location is required" })} 
-            type="text" 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
-            placeholder="Enter project title" 
-          />
-          {errors.location && <p className="mt-1 text-sm text-red-500">{errors.location.message}</p>}
-        </div>
-      </div>
       <div className="pt-4">
         <button 
           type="submit" 
@@ -287,7 +251,7 @@ const Edit = ({ setActiveSection }) => {
               Updating...
             </>
           ) : (
-            "Update Projects"
+            "Update Blogs"
           )}
         </button>
       </div>

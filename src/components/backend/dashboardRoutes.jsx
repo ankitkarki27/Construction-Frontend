@@ -7,6 +7,11 @@ import Edit from "services/Edit";
 import Create from "projects/Create";
 import Show from "projects/Show";
 import Edit from "projects/Edit";
+
+
+import Create from "blogs/Create";
+import Show from "blogs/Show";
+import Edit from "blogs/Edit";
 // import { Edit } from "lucide-react";
 
 // 'projects': 'Projects',
@@ -25,6 +30,11 @@ const DashboardRoutes = () => {
         <Route path="projects/create" element={<Create />} />
         <Route path="projects" element={<Show />} />
         <Route path="projects/edit/:id" element={<Edit />} />
+
+             {/* Blogs */}
+        <Route path="blogs/create" element={<Create />} />
+        <Route path="blogs" element={<Show />} />
+        <Route path="blogs/edit/:id" element={<Edit />} />
         {/* to="/admin/projects/create" */}
       </Route>
     </Routes>

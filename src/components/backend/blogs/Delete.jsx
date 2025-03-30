@@ -12,7 +12,7 @@ const Delete = ({ setActiveSection }) => {
     setLoading(true);
     setError(null);
     
-    fetch(`${apiUrl}services/${params.id}`, {
+    fetch(`${apiUrl}blogs/${params.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -22,13 +22,13 @@ const Delete = ({ setActiveSection }) => {
     })
     .then(response => {
       if (!response.ok) {
-        throw new Error("Failed to delete service");
+        throw new Error("Failed to delete Blog");
       }
       return response.json();
     })
     .then(() => {
-      toast.success("Service deleted successfully!");
-      setActiveSection("list");  // Assuming 'list' section will refresh the list of services
+      toast.success("Blog deleted successfully!");
+      setActiveSection("list");
     })
     .catch(err => {
       setError(err.message);

@@ -24,7 +24,7 @@ const Create = ({ setActiveSection }) => {
 
         try {
             const newData = { ...data, content: watch('content'), imageId: imageId };
-            const response = await fetch(apiUrl + 'projects', {
+            const response = await fetch(apiUrl + 'blogs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,11 +37,11 @@ const Create = ({ setActiveSection }) => {
                 throw new Error(`Error: ${response.status}`);
             }
 
-            toast.success('Projects created successfully!');
+            toast.success('Blogs created successfully!');
             
-            setActiveSection('projects'); 
+            setActiveSection('blogs'); 
         } catch (err) {
-            console.error('Error creating project:', err);
+            console.error('Error creating blog:', err);
             setError(err.message);
         } finally {
             setLoading(false);
@@ -88,7 +88,7 @@ const Create = ({ setActiveSection }) => {
                 </div>
               )}
               
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6">Create project</h2>
+              <h2 className="text-2xl font-semibold text-gray-800 mb-6">Create Blogs</h2>
               
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -115,6 +115,18 @@ const Create = ({ setActiveSection }) => {
                   </div>
                 </div>
           
+                {/* author */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Author Name</label>
+                    <input 
+                      {...register("author", { required: "Enter project title" })} 
+                      type="text" 
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+                      placeholder="Enter author name" 
+                    />
+                    {errors.author && <p className="mt-1 text-sm text-red-500">{errors.author.message}</p>}
+                  </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Short Description</label>
                   <textarea 
@@ -168,54 +180,6 @@ const Create = ({ setActiveSection }) => {
                   </select>
                 </div>
 
-                
-{/* sector */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">sector</label>
-        <select 
-          {...register("sector")} 
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-all" 
-        >
-           <option value="private">private</option>
-           <option value="public">public</option>
-           <option value="governmental">governmental</option>
-        </select>
-      </div>
-
-              <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Construction Type
-          </label>
-          <select
-            {...register("construction_type")}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-all"
-          >
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-            <option value="industrial">Industrial</option>
-            <option value="infrastructure">Infrastructure</option>
-            <option value="renovation">Renovation</option>
-            <option value="educational">Educational</option>
-            <option value="transportation">Transportation</option>
-            <option value="others">Others</option>
-          </select>
-        </div>
-</div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-          <input 
-            {...register("location", { required: "location is required" })} 
-            type="text" 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
-            placeholder="Enter project Location" 
-          />
-          {errors.location && <p className="mt-1 text-sm text-red-500">{errors.location.message}</p>}
-        </div>
-      </div>
-          
                 <div className="pt-4">
                   <button 
                     type="submit" 

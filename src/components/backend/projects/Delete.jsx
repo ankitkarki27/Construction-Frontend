@@ -12,7 +12,7 @@ const Delete = ({ setActiveSection }) => {
     setLoading(true);
     setError(null);
     
-    fetch(`${apiUrl}services/${params.id}`, {
+    fetch(`${apiUrl}projects/${params.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

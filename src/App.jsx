@@ -27,6 +27,10 @@ import ShowProjects from './components/backend/projects/Show';
 import CreateProjects from './components/backend/projects/Create';
 import EditProjects from './components/backend/projects/Edit';
 
+import ShowBlogs from './components/backend/blogs/Show';
+import CreateBlogs from './components/backend/blogs/Create';
+import EditBlogs from './components/backend/blogs/Edit';
+
 // React Toaster for notifications
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -66,6 +70,11 @@ function App() {
             <Route path="projects" element={<ShowProjects />} />
             <Route path="projects/create" element={<CreateProjects  />} />
             <Route path="projects/edit/:id" element={<EditProjects  />} />
+
+              {/* blogs */}
+            <Route path="blogs" element={<ShowBlogs />} />
+            <Route path="blogs/create" element={<CreateBlogs />} />
+            <Route path="blogs/edit/:id" element={<EditBlogs />} />
           </Route>
         </Routes>
       </BrowserRouter>

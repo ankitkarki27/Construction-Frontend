@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { AuthContext } from "./context/Auth";
-import { Home, LogOut, PlusCircle, Eye, ChevronDown, ChevronUp, Layers } from "lucide-react";
+import { Home, LogOut, PlusCircle, Eye, ChevronDown, ChevronUp,PencilLine , ClipboardCheck , Layers } from "lucide-react";
 
 const Dashboard = () => {
   const { logout } = useContext(AuthContext);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [isBlogsOpen, setIsBlogsOpen] = useState(false);
   const location = useLocation();
 
   // Extract pathname
@@ -19,6 +20,8 @@ const pageTitles = {
   'services/create': 'Add Service',
   'projects': 'Projects',
   'projects/create': 'Add Projects',
+  'blogs': 'Blogs',
+  'blogs/create': 'Add Blogs',
 };
 
   return (
@@ -89,7 +92,7 @@ const pageTitles = {
               className="w-full flex items-center justify-between p-2.5 rounded-lg text-gray-800 hover:bg-gray-200"
             >
               <div className="flex items-center">
-                <Layers className="h-5 w-5" />
+                <ClipboardCheck className="h-5 w-5" />
                 <span className="ml-2.5 text-sm">Projects</span>
               </div>
               <ChevronDown className={`h-4 w-4 ${isProjectsOpen ? "rotate-180" : ""}`} />
@@ -116,7 +119,39 @@ const pageTitles = {
             )}
           </div>
 
-  
+    {/* Blogs Dropdown */}
+         <div className="space-y-1">
+            <button
+              onClick={() => setIsBlogsOpen(!isBlogsOpen)}
+              className="w-full flex items-center justify-between p-2.5 rounded-lg text-gray-800 hover:bg-gray-200"
+            >
+              <div className="flex items-center">
+                <PencilLine className="h-5 w-5" />
+                <span className="ml-2.5 text-sm">Blogs</span>
+              </div>
+              <ChevronDown className={`h-4 w-4 ${isBlogsOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {isBlogsOpen && (
+              <div className="ml-6 space-y-1">
+                <NavLink
+                  to="/admin/blogs/create"
+                  className="flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-300"
+                >
+                  <PlusCircle className="h-4 w-4" />
+                  <span className="ml-2.5 text-sm">Add Blogs</span>
+                </NavLink>
+
+                <NavLink
+                  to="/admin/blogs/"
+                  className="flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-300"
+                >
+                  <Eye className="h-4 w-4" />
+                  <span className="ml-2.5 text-sm">View Blogs</span>
+                </NavLink>
+              </div>
+            )}
+          </div>
             </nav>
           </div>
 

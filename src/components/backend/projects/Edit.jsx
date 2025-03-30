@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { apiUrl, token, fileUrl } from "../../common/http";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import JoditEditor from "jodit-react";
 
 const Edit = ({ setActiveSection }) => {
@@ -14,6 +14,7 @@ const Edit = ({ setActiveSection }) => {
   const [content, setContent] = useState("");
   const [project, setProject] = useState("");
   const params = useParams();
+  const navigate = useNavigate();
 
   const config = useMemo(() => ({
     readonly: false,
@@ -73,7 +74,7 @@ const Edit = ({ setActiveSection }) => {
     .then(data => {
         console.log("Response from backend:", data); // Debugging
         toast.success("Project updated successfully!");
-        Navigate('/admin/projects');
+        navigate('/admin/projects');
         setActiveSection("list");
     })
     .catch(err => {
