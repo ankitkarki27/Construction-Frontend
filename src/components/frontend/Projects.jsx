@@ -8,8 +8,8 @@ const Projects = () => {
 <>
 
     <Banner 
-        title="Blogs & Articles" 
-        breadcrumb="home / blogs" 
+        title="Projects" 
+        breadcrumb="home / projects" 
       />
 
 

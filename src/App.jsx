@@ -23,6 +23,10 @@ import ShowServices from './components/backend/services/show';
 import CreateServices from './components/backend/services/Create';
 import EditServices from './components/backend/services/Edit';
 
+import ShowProjects from './components/backend/projects/Show';
+import CreateProjects from './components/backend/projects/Create';
+import EditProjects from './components/backend/projects/Edit';
+
 // React Toaster for notifications
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -56,7 +60,12 @@ function App() {
             <Route index element={<h1>Welcome to Dashboard</h1>} />
             <Route path="services" element={<ShowServices />} />
             <Route path="services/create" element={<CreateServices />} />
-            <Route path="services/edit/:id" element={<EditServices />} />
+            <Route path="services/edit/:id" element={<EditServices />} />ShowProjects
+
+            {/* projects */}
+            <Route path="projects" element={<ShowProjects />} />
+            <Route path="projects/create" element={<CreateProjects  />} />
+            <Route path="projects/edit/:id" element={<EditProjects  />} />
           </Route>
         </Routes>
       </BrowserRouter>
