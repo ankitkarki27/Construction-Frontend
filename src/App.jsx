@@ -31,6 +31,10 @@ import ShowBlogs from './components/backend/blogs/Show';
 import CreateBlogs from './components/backend/blogs/Create';
 import EditBlogs from './components/backend/blogs/Edit';
 
+import ShowTestimonials from './components/backend/testimonials/Show';
+import CreateTestimonials from './components/backend/testimonials/Create';
+import EditTestimonials from './components/backend/testimonials/Edit';
+
 // React Toaster for notifications
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,6 +79,11 @@ function App() {
             <Route path="blogs" element={<ShowBlogs />} />
             <Route path="blogs/create" element={<CreateBlogs />} />
             <Route path="blogs/edit/:id" element={<EditBlogs />} />
+
+            {/* testimonials */}
+            <Route path="testimonials" element={<ShowTestimonials />} />
+            <Route path="testimonials/create" element={<CreateTestimonials />} />
+            <Route path="testimonials/edit/:id" element={<EditTestimonials />} />
           </Route>
         </Routes>
       </BrowserRouter>

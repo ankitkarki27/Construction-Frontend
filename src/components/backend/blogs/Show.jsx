@@ -142,12 +142,12 @@ const Show = ({ setActiveSection }) => {
                                             <div className="flex justify-end space-x-3">
                                                 <a
                                                     href={`/admin/blogs/edit/${blog.id}`}
-                                                    className="text-gray-500 hover:text-blue-600 transition-colors duration-200 p-1.5 rounded-lg hover:bg-blue-50">
+                                                      className="text-blue-600 hover:text-blue-600 transition-colors duration-200 p-1.5 rounded-lg hover:bg-blue-50">
                                                     <Edit className="h-5 w-5" />
                                                 </a>
                                                 <button
                                                     onClick={() => handleDelete(blog.id)}
-                                                    className="text-gray-500 hover:text-red-600 transition-colors duration-200 p-1.5 rounded-lg hover:bg-red-50">
+                                                     className="text-red-600 hover:text-red-800 transition-colors duration-200 p-1.5 rounded-lg hover:bg-red-50">
                                                     <Trash className="h-5 w-5" />
                                                 </button>
                                             </div>
