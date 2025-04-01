@@ -1,120 +1,223 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { apiUrl, fileUrl } from '../common/http';
 
-const Blogs = () => {
-  return (
-    <div>
-          <section id="blogs" className="py-16 ">
-  <div className="container mx-auto px-2">
-    <div className="text-center mb-12">
-      <h2 className="text-4xl font-bold text-gray-900 mb-4">Checkout our recent blogs</h2>
-      <p className="text-lg text-gray-600 max-w-xl mx-auto">
-        Delivering comprehensive construction solutions to your unique project requirements
-      </p>
-    </div>
+const Services = () => {
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [viewMode, setViewMode] = useState('grid'); 
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-    <div className="group relative">
-        <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-xl h-[400px]">
-          <img
-            src="/hero.png"
-            alt="Service Title"
-            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-          />
-          
-          {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/60 to-transparent flex flex-col justify-end p-6 translate-y-full group-hover:translate-y-0 transition-all duration-500">
-            {/* Content Container */}
-            <div className="transform translate-y-8 group-hover:translate-y-0 transition-all duration-300 delay-150">
-              <h3 className="text-xl font-semibold text-white mb-3">Service Title</h3>
-              <p className="text-gray-200 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
-                Comprehensive construction management services that ensure your project is completed on time, within budget, and to the highest quality standards.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-300"
-              >
-                Explore Service
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+  const fetchAllServices = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${apiUrl}get-services`, {
+        method: 'GET'
+      });
       
-      <div className="group relative">
-        <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-xl h-[400px]">
-          <img
-            src="/hero.png"
-            alt="Service Title"
-            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-          />
-          
-          {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/60 to-transparent flex flex-col justify-end p-6 translate-y-full group-hover:translate-y-0 transition-all duration-500">
-            {/* Content Container */}
-            <div className="transform translate-y-8 group-hover:translate-y-0 transition-all duration-300 delay-150">
-              <h3 className="text-xl font-semibold text-white mb-3">Service Title</h3>
-              <p className="text-gray-200 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
-                Comprehensive construction management services that ensure your project is completed on time, within budget, and to the highest quality standards.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-300"
-              >
-                Explore Service
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="group relative">
-        <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-xl h-[400px]">
-          <img
-            src="/hero.png"
-            alt="Service Title"
-            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-          />
-          
-          {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/60 to-transparent flex flex-col justify-end p-6 translate-y-full group-hover:translate-y-0 transition-all duration-500">
-            {/* Content Container */}
-            <div className="transform translate-y-8 group-hover:translate-y-0 transition-all duration-300 delay-150">
-              <h3 className="text-xl font-semibold text-white mb-3">Service Title</h3>
-              <p className="text-gray-200 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
-                Comprehensive construction management services that ensure your project is completed on time, within budget, and to the highest quality standards.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-300"
-              >
-                Explore Service
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-     
-    </div>
-    </div>
-    <a href="#blogs"className="border-2 border-white/30 text-white px-8 py-4 rounded-full hover:bg-white/10 transition-all duration-300 transform hover:scale-105 hover:border-white/60 inline-flex items-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  View More
-                </a>
-                
-    </section>
-    </div>
-  )
-}
+      if (!response.ok) throw new Error('Failed to fetch blogs');
+      
+      const result = await response.json();
+      
+      if (result.status && Array.isArray(result.data)) {
+        setServices(result.data);
+      } else {
+        console.error('Invalid response structure:', result);
+      }
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-export default Blogs
+  useEffect(() => {
+    fetchAllServices();
+  }, []);
+
+  // Filter services based on search term
+  const filteredServices = services.filter(service => 
+    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    service.short_desc.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <section id="services" className="py-16 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-gray-800 mb-3">Our Services</h2>
+          <p className="text-lg text-gray-600 max-w-3xl">
+            Find the right construction services for your project needs.
+          </p>
+        </div>
+
+        {/* User controls */}
+        <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          {/* Search box */}
+          <div className="relative max-w-md w-full">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+              placeholder="Search services..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              aria-label="Search blogs"
+            />
+            {searchTerm && (
+              <button
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setSearchTerm('')}
+                aria-label="Clear search"
+              >
+                <svg className="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+
+          {/* View mode toggle */}
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-gray-500">View:</span>
+            <div className="bg-gray-100 rounded-lg p-1 flex">
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`p-2 rounded-md ${viewMode === 'grid' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'}`}
+                aria-label="Grid view"
+                aria-pressed={viewMode === 'grid'}
+              >
+                <svg className="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-2 rounded-md ${viewMode === 'list' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'}`}
+                aria-label="List view"
+                aria-pressed={viewMode === 'list'}
+              >
+                <svg className="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Results count */}
+        <div className="mb-6 text-sm text-gray-500">
+          {!isLoading && (
+            <p>Showing {filteredServices.length} {filteredServices.length === 1 ? 'service' : 'services'}
+              {searchTerm && ` matching "${searchTerm}"`}
+            </p>
+          )}
+        </div>
+
+        {isLoading ? (
+          <div className="py-12 flex justify-center">
+            <div role="status" className="flex flex-col items-center">
+              <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+              <span className="mt-3 text-gray-600">Loading services...</span>
+            </div>
+          </div>
+        ) : filteredServices.length === 0 ? (
+          <div className="bg-gray-50 rounded-lg p-8 text-center">
+            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 12H4M8 16l-4-4 4-4" />
+            </svg>
+            <h3 className="mt-2 text-lg font-medium text-gray-900">No services found</h3>
+            <p className="mt-1 text-gray-500">Try adjusting your search terms or browse all services.</p>
+            <button 
+              onClick={() => setSearchTerm('')}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Clear Search
+            </button>
+          </div>
+        ) : (
+          <>
+            {viewMode === 'grid' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredServices.map((service, index) => (
+                  <div key={index} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                    <div className="relative h-52">
+                      <img
+                        src={`${fileUrl}uploads/services/small/${service.image}`}
+                        alt={`${service.title} service`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-2">{service.title}</h3>
+                      <p className="text-gray-600 mb-4 line-clamp-2">{service.short_desc}</p>
+                      <a
+                        href={`/services/${service.id}`}
+                        className="inline-flex items-center text-blue-500 hover:text-blue-700 font-medium"
+                        aria-label={`Learn more about ${service.title}`}
+                      >
+                        Learn more
+                        <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {filteredServices.map((service, index) => (
+                  <div key={index} className="flex flex-col sm:flex-row bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                    <div className="sm:w-1/4 lg:w-1/5">
+                      <img
+                        src={`${fileUrl}uploads/services/small/${service.image}`}
+                        alt={`${service.title} service`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">{service.title}</h3>
+                        <p className="text-gray-600">{service.short_desc}</p>
+                      </div>
+                      <div className="mt-4">
+                        <a
+                          href={`/services/${service.id}`}
+                          className="inline-flex items-center text-blue-500 hover:text-blue-700 font-medium"
+                          aria-label={`Learn more about ${service.title}`}
+                        >
+                          Learn more
+                          <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {filteredServices.length > 0 && (
+          <div className="mt-12 text-center">
+            <a
+              href="/contact"
+              className="inline-block px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300"
+              aria-label="Contact us about our services"
+            >
+              Contact Us About Our Services
+            </a>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default Services;

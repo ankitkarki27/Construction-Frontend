@@ -69,7 +69,7 @@ const Show = ({ setActiveSection }) => {
                 throw new Error(result.message);
             }
     
-            setteams(teams.filter((team) => team.id !== teamToDelete.id)); // Corrected to use id
+            setteams(teams.filter((team) => team.id !== teamToDelete.id));
             toast.success('Team deleted successfully!');
         })
         .catch((err) => {

@@ -9,6 +9,8 @@ import Whyus from '../common/Whyus';
 import Testimonials from '../common/Testimonials';
 // import { apiUrl, token } from '../common/http';
 import LatestServices from '../common/LatestServices';
+import LatestProjects from '../common/LatestProjects';
+import Projects from './Projects';
 
 const Home = () => {
  
@@ -16,7 +18,6 @@ const Home = () => {
     <div className="min-h-screen flex flex-col">
       <main>
         <section className="relative min-h-screen flex flex-col">
-          {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img
               src="/3.png"
@@ -31,7 +32,7 @@ const Home = () => {
             <Header />
           </div>
 
-          {/* Hero Content */}
+          {/* Hero */}
           <div className="container mx-auto px-6 py-24 relative z-10 flex-grow flex items-center justify-center">
             <div className="text-center max-w-4xl mx-auto">
               <div className="mb-6">
@@ -83,10 +84,10 @@ const Home = () => {
 
         {/* Subsequent Sections */}
         <About />
-        <LatestServices />
         <Whyus />
+        <LatestServices />
+        <LatestProjects />
         <Testimonials />
-        <Blogs />
         <Contact />
       </main>
 

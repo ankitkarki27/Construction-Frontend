@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { apiUrl, fileUrl } from '../common/http';
+import { apiUrl, fileUrl } from './http';
 
 const LatestServices = () => {
   const [services, setServices] = useState([]);

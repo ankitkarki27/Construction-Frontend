@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter ,Route, Routes } from 'react-router-dom';
 
 // Import frontend components
 import Home from './components/frontend/Home';
@@ -8,6 +8,8 @@ import Projects from './components/frontend/Projects';
 import Blogs from './components/frontend/Blogs';
 import Contact from './components/frontend/Contact';
 import Services from './components/frontend/Services';
+
+import ServiceDetails from './components/frontend/ServiceDetails';
 
 // Import styles
 import './assets/css/index.css'; 
@@ -59,6 +61,8 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/admin/login" element={<Login />} />
 
+          {/* <Route path="/services/:id" element={<ServiceDetails />} /> */}
+          <Route path="/services/:slug" element={<ServiceDetails />} />
           {/* Protected Dashboard with Nested Routes */}
           <Route 
             path="/admin/*" 
@@ -70,9 +74,10 @@ function App() {
           >
             {/*Nested Routes inside Dashboard */}
             <Route index element={<h1>Welcome to Dashboard</h1>} />
+            {/* services */}
             <Route path="services" element={<ShowServices />} />
             <Route path="services/create" element={<CreateServices />} />
-            <Route path="services/edit/:id" element={<EditServices />} />ShowProjects
+            <Route path="services/edit/:id" element={<EditServices />} />
 
             {/* projects */}
             <Route path="projects" element={<ShowProjects />} />
@@ -96,7 +101,6 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      {/* 📢 Toast Notifications */}
       <ToastContainer position="top-right" />
     </>
   );
