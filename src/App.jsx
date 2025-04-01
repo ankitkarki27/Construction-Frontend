@@ -11,7 +11,7 @@ import Services from './components/frontend/Services';
 
 // Import styles
 import './assets/css/index.css'; 
-import './assets/css/style.scss';
+import './assets/css/style.scss'; 
 
 // Import authentication & dashboard
 import Login from './components/backend/Login';
@@ -34,6 +34,10 @@ import EditBlogs from './components/backend/blogs/Edit';
 import ShowTestimonials from './components/backend/testimonials/Show';
 import CreateTestimonials from './components/backend/testimonials/Create';
 import EditTestimonials from './components/backend/testimonials/Edit';
+
+import ShowTeams from './components/backend/teams/Show';
+import CreateTeams from './components/backend/teams/Create';
+import EditTeams from './components/backend/teams/Edit';
 
 // React Toaster for notifications
 import { ToastContainer } from 'react-toastify';
@@ -84,6 +88,10 @@ function App() {
             <Route path="testimonials" element={<ShowTestimonials />} />
             <Route path="testimonials/create" element={<CreateTestimonials />} />
             <Route path="testimonials/edit/:id" element={<EditTestimonials />} />
+
+            <Route path="teams" element={<ShowTeams />} />
+            <Route path="teams/create" element={<CreateTeams />} />
+            <Route path="teams/edit/:id" element={<EditTeams />} />
           </Route>
         </Routes>
       </BrowserRouter>

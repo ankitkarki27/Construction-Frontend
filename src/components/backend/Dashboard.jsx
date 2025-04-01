@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [isBlogsOpen, setIsBlogsOpen] = useState(false);
   const [isTestimonialsOpen, setIsTestimonialsOpen] = useState(false);
+  const [isTeamsOpen, setIsTeamsOpen] = useState(false);
   const location = useLocation();
 
   // Extract pathname
@@ -26,6 +27,8 @@ const pageTitles = {
   'blogs/create': 'Add Blogs',
   'testimonials':'Testimonials',
   'testimonials/create':'Add Testimonials',
+  'teams':'Teams',
+  'teams/create':'Add Teams',
 };
 
   return (
@@ -190,10 +193,10 @@ const pageTitles = {
             )}
           </div>
 
-          {/* testimonials Dropdown */}
+          {/* teams Dropdown */}
           <div className="space-y-1">
             <button
-              onClick={() => setIsTestimonialsOpen(!isTestimonialsOpen)}
+              onClick={() => setIsTeamsOpen(!isTeamsOpen)}
               className="w-full flex items-center justify-between p-2.5 rounded-lg text-gray-800 hover:bg-gray-200"
             >
               <div className="flex items-center">
@@ -201,13 +204,13 @@ const pageTitles = {
                 <Users className="h-5 w-5" />
                 <span className="ml-2.5 text-sm">Teams</span>
               </div>
-              <ChevronDown className={`h-4 w-4 ${isTestimonialsOpen ? "rotate-180" : ""}`} />
+              <ChevronDown className={`h-4 w-4 ${isTeamsOpen ? "rotate-180" : ""}`} />
             </button>
 
-            {isTestimonialsOpen && (
+            {isTeamsOpen && (
               <div className="ml-6 space-y-1">
                 <NavLink
-                  to="/admin/testimonials/create"
+                  to="/admin/teams/create"
                   className="flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-300"
                 >
                   <PlusCircle className="h-4 w-4" />
@@ -215,7 +218,7 @@ const pageTitles = {
                 </NavLink>
 
                 <NavLink
-                  to="/admin/testimonials/"
+                  to="/admin/teams/"
                   className="flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-300"
                 >
                   <Eye className="h-4 w-4" />
