@@ -226,7 +226,7 @@ const Ourteam = () => {
                     </div>
                 </div>
 
-                <div>
+                {/* <div>
                     <img src="https://readymadeui.com/team-1.webp" class="w-32 h-32 rounded-full inline-block" />
 
                     <div class="py-4">
@@ -260,9 +260,9 @@ const Ourteam = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
-                <div>
+                {/* <div>
                     <img src="https://readymadeui.com/team-2.webp" class="w-32 h-32 rounded-full inline-block" />
 
                     <div class="py-4">
@@ -296,7 +296,7 @@ const Ourteam = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
         </>

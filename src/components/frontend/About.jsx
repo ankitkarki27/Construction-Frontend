@@ -3,6 +3,7 @@ import Header from '../common/Header';
 import Footer from '../common/Footer';
 import Banner from '../common/Banner';
 import {default as AboutNew} from '../common/About';
+import {default as WhyusNew} from'../common/Whyus';
 
 const About = () => {
   return (
@@ -11,10 +12,9 @@ const About = () => {
         title="About us" 
         breadcrumb="home / abouts" 
       />
-
-
      <AboutNew/>
 
+    <WhyusNew/>
 
       <div>
             <div class="max-w-2xl mx-auto text-center">
@@ -59,7 +59,7 @@ const About = () => {
                     </div>
                 </div>
 
-                <div>
+                {/* <div>
                     <img src="https://readymadeui.com/team-2.webp" class="w-32 h-32 rounded-full inline-block" />
 
                     <div class="py-4">
@@ -93,8 +93,8 @@ const About = () => {
                             </button>
                         </div>
                     </div>
-                </div>
-
+                </div> */}
+{/* 
                 <div>
                     <img src="https://readymadeui.com/team-3.webp" class="w-32 h-32 rounded-full inline-block" />
 
@@ -201,9 +201,9 @@ const About = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
-                <div>
+                {/* <div>
                     <img src="https://readymadeui.com/team-6.webp" class="w-32 h-32 rounded-full inline-block" />
 
                     <div class="py-4">
@@ -237,7 +237,7 @@ const About = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div>
                     <img src="https://readymadeui.com/team-1.webp" class="w-32 h-32 rounded-full inline-block" />

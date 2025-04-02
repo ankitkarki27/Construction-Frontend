@@ -8,7 +8,7 @@ const LatestProjects = () => {
   const fetchLatestProjects = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(apiUrl + 'latest-projects?limit=4', {
+      const response = await fetch(apiUrl + 'latest-projects?limit=3', {
         method: 'GET',
       });
       const result = await response.json();
@@ -48,7 +48,7 @@ const LatestProjects = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {projects.map((project) => (
               <a 
                 href={`/projects/${project.slug}`}

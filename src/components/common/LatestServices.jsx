@@ -8,7 +8,7 @@ const LatestServices = () => {
   const fetchLatestServices = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(apiUrl + 'latest-services?limit=4', {
+      const response = await fetch(apiUrl + 'latest-services?limit=3', {
         method: 'GET',
       });
       const result = await response.json();
@@ -27,8 +27,8 @@ const LatestServices = () => {
   }, []);
 
   return (
-    <section id="latest-services" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section id="latest-services" className="py-20 px-0 bg-white">
+      <div className="container mx-auto px-1">
         <div className="mb-12">
           <div className="flex flex-col items-center">
             <div className="w-16 h-1 bg-blue-500 mb-4"></div>
@@ -47,7 +47,7 @@ const LatestServices = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {services.map((service, index) => (
               <div 
                 key={service.id} 
