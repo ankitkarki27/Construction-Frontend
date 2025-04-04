@@ -5,8 +5,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
-
+  const [viewMode, setViewMode] = useState('grid');
   const fetchAllProjects = async () => {
     try {
       setIsLoading(true);
@@ -207,7 +206,7 @@ const Projects = () => {
         {filteredProjects.length > 0 && (
           <div className="mt-12 text-center">
             <a
-              href="/contact"
+              href="/contacts"
               className="inline-block px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300"
               aria-label="Contact us about our projects"
             >

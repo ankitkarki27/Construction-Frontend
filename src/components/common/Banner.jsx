@@ -19,7 +19,7 @@ const Banner = ({ title, breadcrumb }) => {
       </div>
 
       {/* Banner Content */}
-      <div className="absolute inset-0 flex flex-col items-start justify-end text-white px-15 py-8">
+      <div className="absolute inset-0 flex flex-col items-start justify-end text-white px-24 py-8">
         <div className="ml-4 mb-8">
           <h1 className="text-2xl font-extrabold mb-3 uppercase tracking-wide text-shadow-sm">
             {title}
@@ -31,13 +31,13 @@ const Banner = ({ title, breadcrumb }) => {
         </div>
         
         {/* Home Icon - Updated */}
-        <Link 
+        {/* <Link 
           to="/" 
           className="absolute top-60 right-6 text-white bg-black/500 hover:bg-blue-500 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-300 shadow-lg"
         >
           <Home size={18} strokeWidth={2.5} />
           <span className="font-medium">Home</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

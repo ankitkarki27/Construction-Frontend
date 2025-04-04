@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter ,Route, Routes } from 'react-router-dom';
+import Header from './components/common/Header'; 
 
 // Import frontend components
 import Home from './components/frontend/Home';
@@ -10,6 +11,10 @@ import Contact from './components/frontend/Contact';
 import Services from './components/frontend/Services';
 
 import ServiceDetails from './components/frontend/ServiceDetails';
+import BlogDetails from './components/frontend/BlogDetails';
+import ProjectDetails from './components/frontend/ProjectDetails';
+
+// FrontTestimonialController
 
 // Import styles
 import './assets/css/index.css'; 
@@ -61,9 +66,11 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/admin/login" element={<Login />} />
 
-          {/* <Route path="/services/:id" element={<ServiceDetails />} /> */}
           <Route path="/services/:slug" element={<ServiceDetails />} />
-          {/* Protected Dashboard with Nested Routes */}
+          <Route path="/blogs/:slug" element={<BlogDetails />} />
+          <Route path="/projects/:slug" element={<ProjectDetails />} />
+
+ {/* Protected Admin Routes */}
           <Route 
             path="/admin/*" 
             element={

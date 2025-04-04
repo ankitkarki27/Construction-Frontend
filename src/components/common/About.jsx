@@ -2,7 +2,9 @@ import React from 'react'
 
 const About = () => {
   return (
-    <section className="container mx-auto px-6 py-24 bg-white">
+    <section className="container mx-auto px-6 py-24 bg-whitesmoke">
+      {/* // <section className="container mx-auto px-6 py-24" style={{ backgroundColor: '#fffbf5' }}> */}
+
       <div className="flex flex-col md:flex-row-reverse items-center gap-16">
         {/* Image Container - Now on the right side */}
         <div className="w-full md:w-1/2">

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { apiUrl, fileUrl } from '../common/http';
 
-const Services = () => {
-  const [services, setServices] = useState([]);
+import { Link } from 'react-router-dom';
+
+const Blogs = () => {
+  const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('grid'); 
 
-  const fetchAllServices = async () => {
+  const fetchAllBlogs = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${apiUrl}get-services`, {
+      const response = await fetch(`${apiUrl}get-blogs`, {
         method: 'GET'
       });
       
@@ -19,7 +21,7 @@ const Services = () => {
       const result = await response.json();
       
       if (result.status && Array.isArray(result.data)) {
-        setServices(result.data);
+        setBlogs(result.data);
       } else {
         console.error('Invalid response structure:', result);
       }
@@ -31,22 +33,22 @@ const Services = () => {
   };
 
   useEffect(() => {
-    fetchAllServices();
+    fetchAllBlogs();
   }, []);
 
-  // Filter services based on search term
-  const filteredServices = services.filter(service => 
-    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.short_desc.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filter blogs based on search term
+  const filteredBlogs = blogs.filter(blog => 
+    blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    blog.short_desc.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <section id="services" className="py-16 bg-white">
+    <section id="blogs" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-3">Our Services</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-3">Our Blogs</h2>
           <p className="text-lg text-gray-600 max-w-3xl">
-            Find the right construction services for your project needs.
+            Find the right construction blogs for your project needs.
           </p>
         </div>
 
@@ -62,7 +64,7 @@ const Services = () => {
             <input
               type="text"
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-              placeholder="Search services..."
+              placeholder="Search blogs..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               aria-label="Search blogs"
@@ -111,7 +113,7 @@ const Services = () => {
         {/* Results count */}
         <div className="mb-6 text-sm text-gray-500">
           {!isLoading && (
-            <p>Showing {filteredServices.length} {filteredServices.length === 1 ? 'service' : 'services'}
+            <p>Showing {filteredBlogs.length} {filteredBlogs.length === 1 ? 'blog' : 'blogs'}
               {searchTerm && ` matching "${searchTerm}"`}
             </p>
           )}
@@ -121,16 +123,16 @@ const Services = () => {
           <div className="py-12 flex justify-center">
             <div role="status" className="flex flex-col items-center">
               <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
-              <span className="mt-3 text-gray-600">Loading services...</span>
+              <span className="mt-3 text-gray-600">Loading blogs...</span>
             </div>
           </div>
-        ) : filteredServices.length === 0 ? (
+        ) : filteredBlogs.length === 0 ? (
           <div className="bg-gray-50 rounded-lg p-8 text-center">
             <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 12H4M8 16l-4-4 4-4" />
             </svg>
-            <h3 className="mt-2 text-lg font-medium text-gray-900">No services found</h3>
-            <p className="mt-1 text-gray-500">Try adjusting your search terms or browse all services.</p>
+            <h3 className="mt-2 text-lg font-medium text-gray-900">No blogs found</h3>
+            <p className="mt-1 text-gray-500">Try adjusting your search terms or browse all blogs.</p>
             <button 
               onClick={() => setSearchTerm('')}
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -142,24 +144,24 @@ const Services = () => {
           <>
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredServices.map((service, index) => (
+                {filteredBlogs.map((blog, index) => (
                   <div key={index} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
                     <div className="relative h-52">
                       <img
-                        src={`${fileUrl}uploads/services/small/${service.image}`}
-                        alt={`${service.title} service`}
+                        src={`${fileUrl}uploads/blogs/small/${blog.image}`}
+                        alt={`${blog.title} blog`}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-semibold text-gray-800 mb-2">{service.title}</h3>
-                      <p className="text-gray-600 mb-4 line-clamp-2">{service.short_desc}</p>
+                      <h3 className="text-xl font-semibold text-gray-800 mb-2">{blog.title}</h3>
+                      <p className="text-gray-600 mb-4 line-clamp-2">{blog.short_desc}</p>
                       <a
-                        href={`/services/${service.id}`}
+                        href={`/blogs/${blog.slug}`}
                         className="inline-flex items-center text-blue-500 hover:text-blue-700 font-medium"
-                        aria-label={`Learn more about ${service.title}`}
+                        aria-label={`Learn more about ${blog.title}`}
                       >
-                        Learn more
+                        Read more
                         <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
@@ -170,31 +172,31 @@ const Services = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredServices.map((service, index) => (
+                {filteredBlogs.map((blog, index) => (
                   <div key={index} className="flex flex-col sm:flex-row bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
                     <div className="sm:w-1/4 lg:w-1/5">
                       <img
-                        src={`${fileUrl}uploads/services/small/${service.image}`}
-                        alt={`${service.title} service`}
+                        src={`${fileUrl}uploads/blogs/small/${blog.image}`}
+                        alt={`${blog.title} blog`}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="p-6 flex-1 flex flex-col justify-between">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-800 mb-2">{service.title}</h3>
-                        <p className="text-gray-600">{service.short_desc}</p>
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">{blog.title}</h3>
+                        {/* <p className="text-gray-600">{blog.slug}</p> */}
+                        <p className="text-gray-600">{blog.short_desc}</p>
                       </div>
                       <div className="mt-4">
-                        <a
-                          href={`/services/${service.id}`}
+                      <Link to={`/blogs/${blog.slug}`}
                           className="inline-flex items-center text-blue-500 hover:text-blue-700 font-medium"
-                          aria-label={`Learn more about ${service.title}`}
+                          aria-label={`Learn more about ${blog.title}`}
                         >
-                          Learn more
+                          Read more
                           <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -204,14 +206,14 @@ const Services = () => {
           </>
         )}
 
-        {filteredServices.length > 0 && (
+        {filteredBlogs.length > 0 && (
           <div className="mt-12 text-center">
             <a
-              href="/contact"
+              href="/contacts"
               className="inline-block px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300"
-              aria-label="Contact us about our services"
+              aria-label="Contact us about our blogs"
             >
-              Contact Us About Our Services
+              Contact Us About Our Blogs
             </a>
           </div>
         )}
@@ -220,4 +222,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Blogs;

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 import About from '../common/About';
@@ -7,18 +8,19 @@ import Contact from '../common/Contact';
 import Blogs from '../common/Blogs';
 import Whyus from '../common/Whyus';
 import Testimonials from '../common/Testimonials';
-// import { apiUrl, token } from '../common/http';
 import LatestServices from '../common/LatestServices';
 import LatestProjects from '../common/LatestProjects';
-import Projects from './Projects';
+import LatestBlogs from '../common/LatestBlogs';
 
 const Home = () => {
- 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-whitesmoke" 
+    style={{ backgroundColor: '#fffefd' }}
+    >
       <main>
         <section className="relative min-h-screen flex flex-col">
-          <div className="absolute inset-0 z-0">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-[1]">
             <img
               src="/3.png"
               alt="Construction Site"
@@ -28,21 +30,21 @@ const Home = () => {
           </div>
 
           {/* Header */}
-          <div className="relative z-10">
+          <div className="relative">
             <Header />
           </div>
 
-          {/* Hero */}
-          <div className="container mx-auto px-6 py-24 relative z-10 flex-grow flex items-center justify-center">
+          {/* Hero Content */}
+          <div className="container mx-auto px-6 py-24 relative z-[10] flex-grow flex items-center justify-center">
             <div className="text-center max-w-4xl mx-auto">
               <div className="mb-6">
                 <span className="bg-white/10 text-white px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase">
                   Leading Construction Solutions
                 </span>
               </div>
-              
+
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                Engineering Precision, 
+                Engineering Precision,
                 <br />
                 <span className="text-blue-300">
                   Delivering Excellence
@@ -53,20 +55,21 @@ const Home = () => {
                 With strategic innovation and meticulous craftsmanship, we transform complex construction challenges into seamless, sustainable architectural solutions.
               </p>
 
+              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a
-                  href="#services"
+                <Link
+                  to="/services"
                   className="bg-blue-600 text-white px-8 py-3.5 rounded-lg hover:bg-blue-700 transition-colors duration-300 font-semibold tracking-wider uppercase text-sm shadow-lg"
                 >
                   Our Services
-                </a>
+                </Link>
 
-                <a
-                  href="#contact"
+                <Link
+                  to="/contacts"
                   className="border border-white/30 text-white px-8 py-3.5 rounded-lg hover:bg-white/10 transition-colors duration-300 font-semibold tracking-wider uppercase text-sm"
                 >
-                  Contact Us
-                </a>
+                  Book Free Consultation
+                </Link>
               </div>
 
               {/* Scroll Indicator */}
@@ -82,12 +85,13 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Subsequent Sections */}
+        {/* Other Sections */}
         <About />
         <Whyus />
         <LatestServices />
         <LatestProjects />
-        <Testimonials />
+        <LatestBlogs/>
+        <LatestTestimonials/>
         <Contact />
       </main>
 
