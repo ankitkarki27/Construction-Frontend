@@ -1,12 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
-import About  from '../common/About';
-import Services  from '../common/Services';
-import Contact  from '../common/Contact';
-import Blogs  from '../common/Blogs';
+import About from '../common/About';
+import Services from '../common/Services';
+import Contact from '../common/Contact';
+import Blogs from '../common/Blogs';
 import Whyus from '../common/Whyus';
-import Testimonials from '../common/Testimonials';
+import LatestTestimonials from '../common/LatestTestimonials';
+import LatestServices from '../common/LatestServices';
+import LatestProjects from '../common/LatestProjects';
+import LatestBlogs from '../common/LatestBlogs';
+
 import { Facebook, Twitter, Linkedin, Instagram, Mail, PhoneCall, MapPin } from "lucide-react";
 
 const Home = () => {
@@ -104,14 +109,14 @@ const Home = () => {
         </section>
 
 
-   <About />
-    <Services />
-    <Whyus/>
-  <Testimonials/>
-
-    <Blogs/>
-    <Contact/>
-
+  
+        <About />
+        <Whyus />
+        <LatestServices />
+        <LatestProjects />
+        <LatestBlogs/>
+        <LatestTestimonials/>
+        <Contact />
       </main>
 
       <Footer />

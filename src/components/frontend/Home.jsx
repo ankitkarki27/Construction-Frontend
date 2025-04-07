@@ -7,10 +7,12 @@ import Services from '../common/Services';
 import Contact from '../common/Contact';
 import Blogs from '../common/Blogs';
 import Whyus from '../common/Whyus';
-import Testimonials from '../common/Testimonials';
+import LatestTestimonials from '../common/LatestTestimonials';
 import LatestServices from '../common/LatestServices';
 import LatestProjects from '../common/LatestProjects';
 import LatestBlogs from '../common/LatestBlogs';
+import Workstats from '../common/Workstats';
+import { Facebook, Twitter, Linkedin, Instagram, Mail, PhoneCall, MapPin } from "lucide-react";
 
 const Home = () => {
   return (
@@ -44,7 +46,7 @@ const Home = () => {
               </div>
 
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                Engineering Precision,
+               Building Your Vision,
                 <br />
                 <span className="text-blue-300">
                   Delivering Excellence
@@ -68,7 +70,7 @@ const Home = () => {
                   to="/contacts"
                   className="border border-white/30 text-white px-8 py-3.5 rounded-lg hover:bg-white/10 transition-colors duration-300 font-semibold tracking-wider uppercase text-sm"
                 >
-                  Book Free Consultation
+                 Contact Us
                 </Link>
               </div>
 
@@ -82,10 +84,13 @@ const Home = () => {
                 </div>
               </div>
             </div>
+
+            
           </div>
         </section>
-
+        
         {/* Other Sections */}
+        <Workstats/>
         <About />
         <Whyus />
         <LatestServices />

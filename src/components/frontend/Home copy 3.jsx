@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 import About from '../common/About';
@@ -6,7 +7,10 @@ import Services from '../common/Services';
 import Contact from '../common/Contact';
 import Blogs from '../common/Blogs';
 import Whyus from '../common/Whyus';
-import Testimonials from '../common/Testimonials';
+import LatestTestimonials from '../common/LatestTestimonials';
+import LatestServices from '../common/LatestServices';
+import LatestProjects from '../common/LatestProjects';
+import LatestBlogs from '../common/LatestBlogs';
 import { Construction, HardHat, Users } from 'lucide-react';
 
 const StatCard = ({ value, label, icon: Icon }) => (
@@ -98,12 +102,14 @@ const Home = () => {
       </section>
 
       {/* Remaining Sections */}
+     
       <About />
-      <Services />
-      <Whyus />
-      <Testimonials />
-      <Blogs />
-      <Contact />
+        <Whyus />
+        <LatestServices />
+        <LatestProjects />
+        <LatestBlogs/>
+        <LatestTestimonials/>
+        <Contact />
 
       <Footer />
     </div>
